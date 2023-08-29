@@ -2,11 +2,24 @@ import { StatusBar } from 'expo-status-bar';
 import { ScrollView, ActivityIndicator, Dimensions, StyleSheet, Text, View } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import * as Location from 'expo-location';
+import { Ionicons } from '@expo/vector-icons';
+import { Fontisto } from '@expo/vector-icons'; 
 
 
 // ES6 문법 객체안에서 width속성 값을 가져오고 이름을 SCREEN_WIDTH로 지정해주는 문법
 const { width:SCREEN_WIDHT } = Dimensions.get("window");
 
+
+const icons = {
+  Clouds: "cloudy",
+  Clear: "day-sunny",
+  Atmosphere: "",
+  Snow: "snow",
+  Rain: "rain",
+  Drizzle: "rains",
+  Thunderstorm: "lightning",
+  
+}
 
 export default function App() {
 
@@ -53,7 +66,15 @@ export default function App() {
                            : (
                               days.map((day, index) =>
                                   <View key={index} style={styles.day}>
-                                    <Text style={styles.temp}>{parseFloat(day.temp.day).toFixed(1)}</Text>
+                                    <View style={{flexDirection: "row", 
+                                                  alignItems: "center", 
+                                                  width: "100%",
+                                                  justifyContent: "space-between"}}>
+                                      <Text style={styles.temp}>
+                                        {parseFloat(day.temp.day).toFixed(1)}
+                                      </Text>
+                                      <Fontisto name={icons[day.weather[0].main]} size={68} color="black" />
+                                    </View>
                                     <Text style={styles.description}>{day.weather[0].main}</Text>
                                     <Text style={styles.tinyText}>{day.weather[0].description}</Text>
                                   </View>)
